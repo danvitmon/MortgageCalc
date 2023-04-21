@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APP NAME: A Coding Challenge by Daniel Monastirsky</title>
+    <title>Money Tree</title>
 
     <!-- Bootstrap CSS -->
 
@@ -44,9 +44,8 @@
         <div class="container">
           <a class="navbar-brand" href="#">
             <img src="/img/FOOTER (5).png" height="60" />
-            APP NAME
+            Money Tree
           </a>
-          <!-- TODO: Customize Mobile Menu Button -->
           <button
             class="navbar-toggler"
             type="button"
@@ -67,7 +66,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/app.html"
-                  >The App</a
+                  >Money Tree</a
                 >
               </li>
               <li class="nav-item">
@@ -87,7 +86,6 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
-                <!-- CHANGE THIS -->
               </li>
             </ul>
           </div>
@@ -96,37 +94,69 @@
     </header>
 
     <main class="container mt-3">
-      <h1>JavaScript Calculator</h1>
-      <div>
-        <label class="form-label">First Number</label>
-        <input class="form-control" type="number" placeholder="First Number" id="firstNumber" />
-      </div>
-      <div>
-        <label class="form-label">Second Number</label>
-        <input class="form-control" type="number" placeholder="Second Number" id="secondNumber" />
-      </div>
-      <div>
-        <label class="form-label">Series of Numbers</label>
-        <input class="form-control" type="number" placeholder="Series of Numbers" id="numberSeries" />
-      </div>
-      <h5 class="mt-3">Results:</h5>
-      <div class="display-6 text-danger m-3 rounded-3 border border-2 border-danger bg-dark-subtle p-2"
-        id="results">
-        0
-      </div>
-      <div class="d-flex gap-3">
-        <button class="btn btn-primary" id="btnAdd" onclick="add()">Add (+)</button>
-        <button class="btn btn-info" onclick="subtract()">Subtract (-)</button>
-        <button class="btn btn-warning" onclick="multiply()">Multiply (x)</button>
-        <button class="btn btn-danger" onclick="divide()">Divide (&div;)</button>
-      </div>
-      <div class="d-flex gap-3 my-3">
-        <button class="btn btn-outline-primary" onclick="sumAll()">Sum All</button>
-        <button class="btn btn-outline-info" onclick="minimum()">Find Minimum</button>
-        <button class="btn btn-outline-warning" onclick="multiplyAll()">Multiply All</button>
-        <button class="btn btn-outline-danger" onclick="maximum()">Find Maximum</button>
-        <button class="btn btn-outline-success" onclick="average()">Find Average</button>
-      </div>
+      <h1>Money Tree</h1>
+      <div class="row mx-1 g-3">
+        <div class="col-12 col-md-4 pt-3">
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                <div class="col d-flex flex-column justify-content-center">
+                    <label for="Amount" class="form-label fs-4">Loan Amount</label>
+                </div>
+                <div class="col">
+                    <input id="amount" name="Amount" type="number" class="form-control" value="25000" />
+                </div>
+                <div class="col">
+                    <label for="Months" class="form-label fs-4">Term (Months)</label>
+                </div>
+                <div class="col">
+                    <input id="months" name="Months" type="number" class="form-control" value="60" />
+                </div>
+                <div class="col">
+                    <label for="Rate" class="form-label fs-4">Interest Rate (%)</label>
+                </div>
+                <div class="col">
+                    <div class="d-flex align-items-center">
+                        <input id="rate" name="Rate" type="number" class="form-control" value="5" />
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <button class="btn btn-success w-100" onclick="calcMortgage()">Calculate</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            <div class="display-4 fw-medium">Your Monthly Payments</div>
+            <div id="monthly" class="display-4 fw-medium">&nbsp;</div>
+            <div class="d-flex">
+                <div class="text-start w-100 fs-4 my-2">Total Principal</div>
+                <div id="tprin" class="text-end w-100 fs-4"></div>
+            </div>
+            <div class="d-flex">
+                <div class="text-start w-100 fs-4 my-2">Total Interest</div>
+                <div id="tint" class="text-end w-100 fs-4"></div>
+            </div>
+            <div class="d-flex">
+                <div class="text-start w-100 fs-4 my-2">Total Cost</div>
+                <div id="tcost" class="text-end w-100 fs-4"></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-2 text-center">
+          <img src="/img/Money Tree.png" class="img-fluid appLogo w-100 my-4" alt="APP NAME logo"/>
+        </div>
+    </div>
+    <div class="table-responsive mx-1 my-3">
+        <table class="table table-striped table-bordered border border-3 border-dark">
+            <thead class="table-dark">
+                <th>Month</th>
+                <th>Payment</th>
+                <th>Principal</th>
+                <th>Interest</th>
+                <th>Total Interest</th>
+                <th>Balance</th>
+            </thead>
+            <tbody id="calcTable"></tbody>
+        </table>
+    </div>
     </main>
 
     <footer class="py-3">
@@ -167,6 +197,17 @@
         </div>
       </div>
     </footer>
+
+    <template id="trtemp">
+      <tr>
+          <td data-id="month"></td>
+          <td data-id="pay"></td>
+          <td data-id="prin"></td>
+          <td data-id="int"></td>
+          <td data-id="total"></td>
+          <td data-id="bal"></td>
+      </tr>
+  </template>
 
     <!-- Bootstrap JS -->
     <script
