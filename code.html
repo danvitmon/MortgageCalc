@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APP NAME: A Coding Challenge by Daniel Monastirsky</title>
+    <title>Money Tree</title>
 
     <!-- Bootstrap CSS -->
 
@@ -45,7 +45,7 @@
         <div class="container">
           <a class="navbar-brand" href="#">
             <img src="/img/FOOTER (5).png" height="60" />
-            APP NAME
+            Money Tree
           </a>
           <!-- TODO: Customize Mobile Menu Button -->
           <button
@@ -69,13 +69,13 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/app.html">The App</a>
+                <a class="nav-link" href="/app.html">Money Tree</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/code.html">The Code</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://github.com/danvitmon"
+                <a class="nav-link" href="https://github.com/danvitmon/MortgageCalc"
                   >The Repo</a
                 >
               </li>
@@ -87,7 +87,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
+                <a class="nav-link" href="https://bloggedin-4b73ab94fb79.herokuapp.com/">Blog</a>
                 <!-- CHANGE THI -->
               </li>
             </ul>
@@ -102,26 +102,105 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-function displayMessage() {
-    let msg = document.getElementById('message').value;
-    //alert(msg);
-
-    Swal.fire(
-        {
-            backdrop: false,
-            title: 'App Name',
-            text: msg
-        }
-);
-}
+                      function calcMortgage(){
+                        let amount = parseFloat(document.getElementById("amount").value);
+                        let months = parseFloat(document.getElementById("months").value);
+                        let rate = parseFloat(document.getElementById("rate").value);
+                      
+                        if(isNaN(amount) || amount <= 0){
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please enter a positive dollar value for the loan amount",
+                                backdrop: false,
+                            });
+                            return;
+                        }
+                        if(!Number.isInteger(months) || months < 1){
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please enter a positive number of months for the term",
+                                backdrop: false,
+                            });
+                            return;
+                        }
+                        if (isNaN(rate) || rate < 0) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please enter a positive percentage value for the interest rate",
+                                backdrop: false,
+                            });
+                            return;
+                        }
+                      
+                        let monthlyPay = (amount * (rate/1200)) / (1 - Math.pow((1 + (rate/1200)), -months)) 
+                        let totalInt = buildTable(amount, months, rate, monthlyPay);
+                        displayTotals(monthlyPay, amount, totalInt);
+                      }
+                      
+                      function buildTable(amount, months, rate, monthlyPay){
+                        table = document.getElementById("calcTable");
+                        template = document.getElementById("trtemp");
+                      
+                        let totalInt = 0;
+                        let balance = amount;
+                      
+                        for(i = 1; i <= months; i++){
+                            let tableRow = document.importNode(template.content, true);
+                      
+                            tableRow.querySelector("[data-id='month']").textContent = i;
+                      
+                            tableRow.querySelector("[data-id='pay']").textContent = formatCurrency(monthlyPay);
+                      
+                            let interest = balance * (rate / 1200);
+                            tableRow.querySelector("[data-id='int']").textContent = formatCurrency(interest);
+                      
+                            let principal = monthlyPay - interest;
+                            tableRow.querySelector("[data-id='prin']").textContent = formatCurrency(principal);
+                      
+                            totalInt += interest;
+                            tableRow.querySelector("[data-id='total']").textContent = formatCurrency(totalInt);
+                      
+                            balance -= principal;
+                            tableRow.querySelector("[data-id='bal']").textContent = formatCurrency(Math.abs(balance));
+                      
+                            table.appendChild(tableRow);
+                        }
+                      
+                        return totalInt;
+                      }
+                      
+                      function displayTotals(monthlyPay, amount, totalInt){
+                        let cost = amount + totalInt
+                        document.getElementById("monthly").textContent = formatCurrency(monthlyPay);
+                        document.getElementById("tprin").textContent = formatCurrency(amount);
+                        document.getElementById("tint").textContent = formatCurrency(totalInt);
+                        document.getElementById("tcost").textContent = formatCurrency(cost);
+                      }
+                      
+                      function formatCurrency(num){
+                        return num.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                        });
+                      }
 
                     </code>
                 </pre>
             </div>
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function</p>
-                <h5>displayMessage</h5>
-                <p>Prints out the message</p>
+                <p>The code is structured in a series of functions that let the app calculate mortage-related values and display them on a web page.</p>
+                <h5>The function begins by retrieving the values entered by the user from the HTML elements with the IDs "amount," "months," and "rate." These values represent the loan amount, the number of months for the term, and the interest rate, respectively.</h5>
+                <p>The code then performs validation checks on the input values to ensure they are valid and appropriate for the calculations. If any of the checks fail, an error message is displayed using the Swal.fire() function from the SweetAlert library, and the function execution is halted using the return statement.</p>
+                <p>If the input values pass the validation checks, the function proceeds with the mortgage calculation. It calculates the monthly payment using the provided formula:</p>
+                <h5>let monthlyPay = (amount * (rate/1200)) / (1 - Math.pow((1 + (rate/1200)), -months));</h5>
+                <p>This formula uses the loan amount, interest rate, and number of months to determine the fixed monthly payment required for the mortgage.</p>
+                <p>The buildTable() function is called with the relevant parameters to generate a table displaying the monthly payment breakdown. This function populates an HTML table row template (trtemp) with the calculated values and appends it to the table with the ID "calcTable." It iterates over each month, updating the values for the month number, payment amount, interest, principal, total interest, remaining balance, and adds up the total interest paid.</p>
+                <h5>After the loop in buildTable() finishes, the function returns the total interest paid.</h5>
+                <p>The displayTotals() function is called, which takes the monthly payment, loan amount, and total interest as parameters. It updates specific HTML elements with the formatted values to display the overall totals.</p>
+                <p>Finally, there is a helper function called formatCurrency() that formats a number as a currency value using the toLocaleString() function. It ensures the numbers are displayed in US currency format.</p>
             </div>
         </div>
     </main>
@@ -143,12 +222,6 @@ function displayMessage() {
           <a href="https://github.com/danvitmon"
             ><i
               class="bi bi-github socialicons p-2"
-              style="font-size: 1.5em"
-            ></i
-          ></a>
-          <a href="https://twitter.com/my-profile"
-            ><i
-              class="bi bi-twitter socialicons p-2"
               style="font-size: 1.5em"
             ></i
           ></a>
