@@ -70,22 +70,22 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/code.html">The Code</a>
+                <a class="nav-link" href="/code.html">Backend</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://github.com/danvitmon/MortgageCalc"
-                  >The Repo</a
+                <a class="nav-link" href="https://github.com/danvitmon/MortgageCalc" target="_blank"
+                  >Repository</a
                 >
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://danielmsportfolio.netlify.app/"
+                  href="https://danielmsportfolio.netlify.app/" target="_blank"
                   >My Portfolio</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://bloggedin-4b73ab94fb79.herokuapp.com/">Blog</a>
+                <a class="nav-link" href="https://bloggedin-4b73ab94fb79.herokuapp.com/" target="_blank">My Blog</a>
               </li>
             </ul>
           </div>
@@ -124,21 +124,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6 text-center p-4">
+        <div class="col-12 col-md-6 text-center">
+          <div class="d-flex">
+                <div class="text-start w-100 fs-5 py-3 px-5">Total Principal</div>
+                <div id="tprin" class="text-end w-100 fs-5 py-3 px-5"></div>
+            </div>
+            <div class="d-flex">
+                <div class="text-start w-100 fs-5 py-3 px-5">Total Interest</div>
+                <div id="tint" class="text-end w-100 fs-5 py-3 px-5"></div>
+            </div>
+            <div class="d-flex">
+                <div class="text-start w-100 fs-5 py-3 px-5">Total Cost</div>
+                <div id="tcost" class="text-end w-100 fs-5 py-3 px-5"></div>
+            </div>
             <div class="display-5 fw-medium my-3">Your Monthly Payments</div>
             <div id="monthly" class="display-4 fw-medium">&nbsp;</div>
-            <div class="d-flex">
-                <div class="text-start w-100 fs-5 my-3">Total Principal</div>
-                <div id="tprin" class="text-end w-100 fs-5"></div>
-            </div>
-            <div class="d-flex">
-                <div class="text-start w-100 fs-5 my-3">Total Interest</div>
-                <div id="tint" class="text-end w-100 fs-5"></div>
-            </div>
-            <div class="d-flex">
-                <div class="text-start w-100 fs-5 my-3">Total Cost</div>
-                <div id="tcost" class="text-end w-100 fs-5"></div>
-            </div>
+            
         </div>
         <div class="col-12 col-md-2 text-center">
           <img src="/img/Money Tree.png" class="img-fluid appLogo w-100 my-4" alt="APP NAME logo"/>
@@ -146,7 +147,7 @@
     </div>
     <div class="table-responsive mx-1 my-3">
         <table class="table table-striped table-bordered border border-3 border-dark">
-            <thead class="table-dark">
+            <thead class="table-dark text-end">
                 <th>Month</th>
                 <th>Payment</th>
                 <th>Principal</th>
@@ -154,7 +155,7 @@
                 <th>Total Interest</th>
                 <th>Balance</th>
             </thead>
-            <tbody id="calcTable"></tbody>
+            <tbody id="calcTable" class="text-end"></tbody>
         </table>
     </div>
     </main>

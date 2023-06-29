@@ -86,7 +86,7 @@ footer .bi:hover {
 }
 
 .checklist>li i {
-    color: var(--dm-highlight-color);
+    color: var(--dm-secondary-color);
     padding-right: .5rem;
 }
 
