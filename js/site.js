@@ -74,6 +74,10 @@ function displayTotals(monthlyPay, amount, totalInt){
   document.getElementById("tprin").textContent = formatCurrency(amount);
   document.getElementById("tint").textContent = formatCurrency(totalInt);
   document.getElementById("tcost").textContent = formatCurrency(cost);
+  document.getElementById("tprinid").textContent = "Total Principle"
+  document.getElementById("tintid").textContent = "Total Interest"
+  document.getElementById("tcostid").textContent = "Total Cost"
+  document.getElementById("monthlyid").textContent = "Your Monthly Payment"
 }
 
 function formatCurrency(num){
