@@ -1,6 +1,6 @@
 # Money Tree - Mortgage Calculator
 
-Money Tree is focused on making sure you have the easiest way to check your current loan figure and other info regarding it.
+Money Tree is focused on making sure you have the easiest way to check your current loan figure and other information regarding it.
 # Features
   - CSS and Bootstrap Layout
   - JavaScript Fundamentals
