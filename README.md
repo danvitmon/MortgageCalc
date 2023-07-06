@@ -1,4 +1,4 @@
-# MortgageCalc
+# Money Tree - Mortgage Calculator
 
 Opportunities
 - Printing functionality
